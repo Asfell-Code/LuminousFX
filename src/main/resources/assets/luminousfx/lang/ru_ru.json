@@ -1,0 +1,15 @@
+{
+  "screen.luminousfx.subtitle": "БОЕВОЕ МЕНЮ",
+  "screen.luminousfx.modules": "МОДУЛИ",
+  "category.luminousfx.visuals": "Визуалы",
+  "category.luminousfx.hud": "HUD",
+  "category.luminousfx.utilities": "Утилиты",
+  "module.luminousfx.crystal_damage_viz": "Урон кристалла",
+  "module.luminousfx.crystal_timer": "Таймер кристалла",
+  "module.luminousfx.blast_radius": "Радиус взрыва",
+  "module.luminousfx.hit_marker": "Метка попадания",
+  "module.luminousfx.night_vision": "Ночное зрение",
+  "module.luminousfx.armor_durability": "Прочность брони",
+  "module.luminousfx.hitbox_color": "Цвет хитбоксов",
+  "module.luminousfx.armor_bar_color": "Цвет полоски брони"
+}

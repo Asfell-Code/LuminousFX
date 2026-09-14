@@ -1,0 +1,41 @@
+{
+	"schemaVersion": 1,
+	"id": "luminousfx",
+	"version": "${version}",
+	"name": "LuminousFX",
+	"description": "This is an example description! Tell everyone what your mod is about!",
+	"authors": [
+		"Me!"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/luminousfx/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"asfell.luminousfx.LuminousFX"
+		],
+		"client": [
+			"asfell.luminousfx.client.LuminousFXClient"
+		],
+		"fabric-datagen": [
+			"asfell.luminousfx.client.LuminousFXDataGenerator"
+		]
+	},
+	"mixins": [
+		"luminousfx.mixins.json",
+		{
+			"config": "luminousfx.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.19.5",
+		"minecraft": "~1.21.1",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}
