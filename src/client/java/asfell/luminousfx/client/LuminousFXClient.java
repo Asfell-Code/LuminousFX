@@ -11,24 +11,23 @@ import net.minecraft.client.KeyMapping;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 
-public class LuminousFXClient implements ClientModInitializer {
-	private static KeyMapping clickGuiKey;
+public final class LuminousFXClient implements ClientModInitializer {
+	private static final int NIGHT_VISION_DURATION = 300;
+	private static KeyMapping nightVisionKey;
+	private static boolean nightVisionEnabled = true;
 
 	@Override
 	public void onInitializeClient() {
-		LuminousFXConfig.load();
-		CrystalPvPOverlay.register();
-		clickGuiKey = KeyBindingHelper.registerKeyBinding(new KeyMapping(
-				"key.luminousfx.clickgui", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_RIGHT_SHIFT,
+		nightVisionKey = KeyBindingHelper.registerKeyBinding(new KeyMapping(
+				"key.luminousfx.night_vision", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_RIGHT_SHIFT,
 				"key.categories.luminousfx"));
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
-			if (client.player != null && LuminousFXConfig.isEnabled("Night Vision")) {
-				client.player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 300, 0, false, false, false));
+			while (nightVisionKey.consumeClick()) {
+				nightVisionEnabled = !nightVisionEnabled;
 			}
-			while (clickGuiKey.consumeClick()) {
-				if (client.screen == null) {
-					client.setScreen(new ClickGuiScreen());
-				}
+			if (client.player != null && nightVisionEnabled) {
+				client.player.addEffect(new MobEffectInstance(
+						MobEffects.NIGHT_VISION, NIGHT_VISION_DURATION, 0, false, false, false));
 			}
 		});
 	}

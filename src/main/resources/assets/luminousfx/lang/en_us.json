@@ -1,15 +1,4 @@
 {
-  "screen.luminousfx.subtitle": "COMBAT MENU",
-  "screen.luminousfx.modules": "MODULES",
-  "category.luminousfx.visuals": "Visuals",
-  "category.luminousfx.hud": "HUD",
-  "category.luminousfx.utilities": "Utilities",
-  "module.luminousfx.crystal_damage_viz": "Crystal damage",
-  "module.luminousfx.crystal_timer": "Crystal timer",
-  "module.luminousfx.blast_radius": "Blast radius",
-  "module.luminousfx.hit_marker": "Hit marker",
-  "module.luminousfx.night_vision": "Night vision",
-  "module.luminousfx.armor_durability": "Armor durability",
-  "module.luminousfx.hitbox_color": "Hitbox color",
-  "module.luminousfx.armor_bar_color": "Armor bar color"
+  "key.luminousfx.night_vision": "Toggle night vision",
+  "key.categories.luminousfx": "LuminousFX"
 }

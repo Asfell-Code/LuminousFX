@@ -1,9 +1,9 @@
 # LuminousFX
 
-## Setup
+LuminousFX is a client-side Fabric mod for Minecraft 1.21.1 that provides a
+toggleable night vision effect. Press **Right Shift** to enable or disable it.
 
-For setup instructions, please see the [Fabric Documentation page](https://docs.fabricmc.net/develop/getting-started/creating-a-project#setting-up) related to the IDE that you are using.
+## Build
 
-## License
-
-This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+Run `gradlew build` on Windows or `./gradlew build` on macOS/Linux. The
+compiled mod and sources JARs are written to `build/libs`.
