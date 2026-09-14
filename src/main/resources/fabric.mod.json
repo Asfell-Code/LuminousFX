@@ -3,7 +3,7 @@
 	"id": "luminousfx",
 	"version": "${version}",
 	"name": "LuminousFX",
-	"description": "A lightweight client-side night vision toggle.",
+	"description": "Client-side armor durability HUD and toggleable night vision.",
 	"authors": [
 		"Asfell-Code"
 	],
