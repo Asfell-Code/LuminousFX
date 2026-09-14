@@ -3,13 +3,13 @@
 	"id": "luminousfx",
 	"version": "${version}",
 	"name": "LuminousFX",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "A client-side PvP utility mod with a crystal PvP overlay, configurable visual effects, and a click GUI for managing combat-focused HUD and visual modules.",
 	"authors": [
-		"Me!"
+		"Asfell-Code"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://github.com/Asfell-Code/OneTap-Craft-Drag-Shot",
+		"sources": "https://github.com/Asfell-Code/OneTap-Craft-Drag-Shot"
 	},
 	"license": "CC0-1.0",
 	"icon": "assets/luminousfx/icon.png",
