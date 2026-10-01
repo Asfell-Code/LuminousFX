@@ -20,9 +20,6 @@
 		],
 		"client": [
 			"asfell.luminousfx.client.LuminousFXClient"
-		],
-		"fabric-datagen": [
-			"asfell.luminousfx.client.LuminousFXDataGenerator"
 		]
 	},
 	"mixins": [

@@ -1,5 +1,7 @@
 package asfell.luminousfx.client;
 
+import java.util.List;
+
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -12,14 +14,9 @@ public class ClickGuiScreen extends Screen {
     private static final int SIDEBAR_WIDTH = 190;
     private static final int CARD_HEIGHT = 62;
     private static final int CARD_GAP = 12;
-        private static final String[] CATEGORIES = {"category.luminousfx.visuals", "category.luminousfx.hud", "category.luminousfx.utilities"};
-    private static final String[][] MODULES = {
-            {"Crystal Damage Viz", "Crystal Timer", "Blast Radius", "Hit Marker", "Night Vision", "Hitbox Color"},
-            {"Armor Durability", "Armor Bar Color"},
-            {}
-    };
+    private static final String[] CATEGORIES = {"category.luminousfx.hud"};
 
-        private int selectedCategory;
+    private int selectedCategory;
 
     public ClickGuiScreen() {
         super(Component.literal("LuminousFX ClickGUI"));
@@ -60,25 +57,24 @@ public class ClickGuiScreen extends Screen {
         int contentLeft = left + SIDEBAR_WIDTH + 30;
         graphics.drawString(this.font, Component.translatable(CATEGORIES[selectedCategory]), contentLeft, top + 31, 0xFFF3F6FB, false);
         graphics.drawString(this.font, Component.translatable("screen.luminousfx.modules"), contentLeft, top + 50, 0xFF778192, false);
-        for (int index = 0; index < MODULES[selectedCategory].length; index++) {
+        List<LuminousFXModule> modules = LuminousFXModules.all();
+        for (int index = 0; index < modules.size(); index++) {
             int cardLeft = contentLeft + index % 2 * 268;
             int cardTop = top + 78 + index / 2 * (CARD_HEIGHT + CARD_GAP);
-            String module = MODULES[selectedCategory][index];
+            LuminousFXModule module = modules.get(index);
             fillRounded(graphics, cardLeft, cardTop, 254, CARD_HEIGHT, 9, 0xFF202631);
-            graphics.drawString(this.font, Component.translatable(moduleKey(module)), cardLeft + 17, cardTop + 19, 0xFFF0F3F8, false);
-            if (module.equals("Armor Bar Color")) {
-                drawColorSwatch(graphics, cardLeft + 198, cardTop + 18, LuminousFXConfig.getArmorBarColor());
-            } else if (module.equals("Hitbox Color")) {
-                drawColorSwatch(graphics, cardLeft + 198, cardTop + 18, LuminousFXConfig.getHitboxColor());
-            } else {
-                drawToggle(graphics, cardLeft + 198, cardTop + 18, LuminousFXConfig.isEnabled(module));
+            graphics.drawString(this.font, Component.translatable(module.translationKey()), cardLeft + 17, cardTop + 19, 0xFFF0F3F8, false);
+            if (module.id().equals("armor_hud") || module.id().equals("night_vision")) {
+                graphics.drawString(this.font, Component.literal("⚙"), cardLeft + 166, cardTop + 19, 0xFFB8C2D1, false);
             }
+            drawToggle(graphics, cardLeft + 198, cardTop + 18,
+                    LuminousFXConfig.getBoolean(module.id(), module.defaultEnabled()));
         }
     }
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        if (button != 0) return super.mouseClicked(mouseX, mouseY, button);
+        if (button != 0 && button != 1) return super.mouseClicked(mouseX, mouseY, button);
         float scale = Math.min(this.width / (float) UI_WIDTH, this.height / (float) UI_HEIGHT);
         int offsetX = (int) ((this.width - UI_WIDTH * scale) / 2.0F);
         int offsetY = (int) ((this.height - UI_HEIGHT * scale) / 2.0F);
@@ -94,20 +90,36 @@ public class ClickGuiScreen extends Screen {
             }
         }
         int contentLeft = left + SIDEBAR_WIDTH + 30;
-        for (int index = 0; index < MODULES[selectedCategory].length; index++) {
+        List<LuminousFXModule> modules = LuminousFXModules.all();
+        for (int index = 0; index < modules.size(); index++) {
             int cardLeft = contentLeft + index % 2 * 268;
             int cardTop = top + 78 + index / 2 * (CARD_HEIGHT + CARD_GAP);
             if (x < cardLeft || x > cardLeft + 254 || y < cardTop || y > cardTop + CARD_HEIGHT) continue;
-            String module = MODULES[selectedCategory][index];
-            if (module.equals("Armor Bar Color")) {
-                LuminousFXConfig.cycleArmorBarColor();
+            LuminousFXModule module = modules.get(index);
+            if (module.id().equals("night_vision")) {
+                if (button == 1) {
+                    minecraft.setScreen(new NightVisionConfigScreen(this));
+                } else {
+                    boolean enabled = LuminousFXConfig.getBoolean(module.id(), module.defaultEnabled());
+                    LuminousFXConfig.setBoolean(module.id(), !enabled);
+                }
                 return true;
             }
-            if (module.equals("Hitbox Color")) {
-                LuminousFXConfig.cycleHitboxColor();
+            if ((module.id().equals("armor_hud") || module.id().equals("trajectory")
+                    )
+                    && (button == 1 || (x >= cardLeft + 154 && x <= cardLeft + 192))) {
+                Screen configScreen = switch (module.id()) {
+                    case "trajectory" -> new TrajectoryConfigScreen(this);
+                    default -> new ArmorHudConfigScreen(this);
+                };
+                minecraft.setScreen(configScreen);
                 return true;
             }
-            LuminousFXConfig.setEnabled(module, !LuminousFXConfig.isEnabled(module));
+            if (button == 1) {
+                return true;
+            }
+            boolean enabled = LuminousFXConfig.getBoolean(module.id(), module.defaultEnabled());
+            LuminousFXConfig.setBoolean(module.id(), !enabled);
             return true;
         }
         return super.mouseClicked(mouseX, mouseY, button);
@@ -120,10 +132,6 @@ public class ClickGuiScreen extends Screen {
             return true;
         }
         return super.keyPressed(keyCode, scanCode, modifiers);
-    }
-
-    private String moduleKey(String module) {
-        return "module.luminousfx." + module.toLowerCase().replace(' ', '_');
     }
 
     private void drawToggle(GuiGraphics graphics, int x, int y, boolean enabled) {
@@ -147,11 +155,6 @@ public class ClickGuiScreen extends Screen {
                 graphics.fill(x - 7, y + 5, x + 7, y + 8, color);
             }
         }
-    }
-
-    private void drawColorSwatch(GuiGraphics graphics, int x, int y, int color) {
-        fillRounded(graphics, x, y, 39, 24, 8, 0xFF303640);
-        graphics.fill(x + 5, y + 5, x + 34, y + 19, color);
     }
 
     private void fillRounded(GuiGraphics graphics, int x, int y, int width, int height, int radius, int color) {

@@ -1,15 +1,14 @@
 {
   "screen.luminousfx.subtitle": "COMBAT MENU",
   "screen.luminousfx.modules": "MODULES",
-  "category.luminousfx.visuals": "Visuals",
   "category.luminousfx.hud": "HUD",
-  "category.luminousfx.utilities": "Utilities",
-  "module.luminousfx.crystal_damage_viz": "Crystal damage",
-  "module.luminousfx.crystal_timer": "Crystal timer",
-  "module.luminousfx.blast_radius": "Blast radius",
-  "module.luminousfx.hit_marker": "Hit marker",
   "module.luminousfx.night_vision": "Night vision",
-  "module.luminousfx.armor_durability": "Armor durability",
-  "module.luminousfx.hitbox_color": "Hitbox color",
-  "module.luminousfx.armor_bar_color": "Armor bar color"
+  "module.luminousfx.armor_hud": "Armor HUD",
+  "module.luminousfx.trajectory": "Trajectory predictor",
+  "key.luminousfx.night_vision_toggle": "Toggle gamma night vision",
+  "screen.luminousfx.night_vision.title": "GAMMA NIGHT VISION",
+  "screen.luminousfx.night_vision.enabled": "Night vision: ON",
+  "screen.luminousfx.night_vision.disabled": "Night vision: OFF",
+  "screen.luminousfx.night_vision.gamma": "Gamma: %s%%",
+  "screen.luminousfx.night_vision.reset": "Reset gamma"
 }

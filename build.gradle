@@ -13,6 +13,10 @@ repositories {
 
 loom {
 	splitEnvironmentSourceSets()
+	mixin {
+		defaultRefmapName = "luminousfx-refmap.json"
+		useLegacyMixinAp = true
+	}
 
 	mods {
 		"luminousfx" {
@@ -36,6 +40,7 @@ dependencies {
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+	clientAnnotationProcessor "net.fabricmc:sponge-mixin:0.17.4+mixin.0.8.7"
 }
 
 processResources {

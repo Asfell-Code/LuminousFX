@@ -1,9 +1,10 @@
 {
 	"required": true,
 	"package": "asfell.luminousfx.client.mixin",
+	"refmap": "client-luminousfx-refmap.json",
 	"compatibilityLevel": "JAVA_21",
 	"client": [
-		"ExampleClientMixin"
+		"LightTextureMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
