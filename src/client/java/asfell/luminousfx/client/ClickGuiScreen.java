@@ -64,8 +64,8 @@ public class ClickGuiScreen extends Screen {
             LuminousFXModule module = modules.get(index);
             fillRounded(graphics, cardLeft, cardTop, 254, CARD_HEIGHT, 9, 0xFF202631);
             graphics.drawString(this.font, Component.translatable(module.translationKey()), cardLeft + 17, cardTop + 19, 0xFFF0F3F8, false);
-                if (module.id().equals("armor_hud") || module.id().equals("night_vision")
-                    || module.id().equals("glint")) {
+            if (module.id().equals("armor_hud") || module.id().equals("night_vision")
+                    || module.id().equals("trajectory") || module.id().equals("glint")) {
                 graphics.drawString(this.font, Component.literal("⚙"), cardLeft + 166, cardTop + 19, 0xFFB8C2D1, false);
             }
             if (module.id().equals("glint")) {
@@ -110,10 +110,25 @@ public class ClickGuiScreen extends Screen {
                     case "armor_hud" -> new ArmorHudConfigScreen(this);
                     default -> null;
                 };
-                if (configScreen != null) {
-                    minecraft.setScreen(configScreen);
-                    return true;
-                }
+                if (configScreen != null) minecraft.setScreen(configScreen);
+                return true;
+            }
+            if (module.id().equals("night_vision")) {
+                boolean enabled = LuminousFXConfig.getBoolean(module.id(), module.defaultEnabled());
+                LuminousFXConfig.setBoolean(module.id(), !enabled);
+                return true;
+            }
+            if ((module.id().equals("armor_hud") || module.id().equals("trajectory")
+                    ) && (x >= cardLeft + 154 && x <= cardLeft + 192)) {
+                Screen configScreen = switch (module.id()) {
+                    case "trajectory" -> new TrajectoryConfigScreen(this);
+                    default -> new ArmorHudConfigScreen(this);
+                };
+                minecraft.setScreen(configScreen);
+                return true;
+            }
+            if (module.id().equals("glint") && x >= cardLeft + 191 && x <= cardLeft + 244) {
+                minecraft.setScreen(new GlintConfigScreen());
                 return true;
             }
             boolean enabled = LuminousFXConfig.getBoolean(module.id(), module.defaultEnabled());
