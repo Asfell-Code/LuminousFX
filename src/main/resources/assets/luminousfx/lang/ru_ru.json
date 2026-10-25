@@ -1,15 +1,14 @@
 {
   "screen.luminousfx.subtitle": "БОЕВОЕ МЕНЮ",
   "screen.luminousfx.modules": "МОДУЛИ",
-  "category.luminousfx.visuals": "Визуалы",
-  "category.luminousfx.hud": "HUD",
-  "category.luminousfx.utilities": "Утилиты",
-  "module.luminousfx.crystal_damage_viz": "Урон кристалла",
-  "module.luminousfx.crystal_timer": "Таймер кристалла",
-  "module.luminousfx.blast_radius": "Радиус взрыва",
-  "module.luminousfx.hit_marker": "Метка попадания",
+  "category.luminousfx.hud": "ИНТЕРФЕЙС",
   "module.luminousfx.night_vision": "Ночное зрение",
-  "module.luminousfx.armor_durability": "Прочность брони",
-  "module.luminousfx.hitbox_color": "Цвет хитбоксов",
-  "module.luminousfx.armor_bar_color": "Цвет полоски брони"
+  "module.luminousfx.armor_hud": "Индикатор брони",
+  "module.luminousfx.trajectory": "Прогноз траектории",
+  "key.luminousfx.night_vision_toggle": "Вкл./выкл. гамма-ночное зрение",
+  "screen.luminousfx.night_vision.title": "ГАММА-НОЧНОЕ ЗРЕНИЕ",
+  "screen.luminousfx.night_vision.enabled": "Ночное зрение: ВКЛ",
+  "screen.luminousfx.night_vision.disabled": "Ночное зрение: ВЫКЛ",
+  "screen.luminousfx.night_vision.gamma": "Гамма: %s%%",
+  "screen.luminousfx.night_vision.reset": "Сбросить гамму"
 }
